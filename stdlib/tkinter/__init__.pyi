@@ -374,10 +374,10 @@ class _GridIndexInfo(TypedDict, total=False):
 class _BusyInfo(TypedDict):
     cursor: _Cursor
 
-class Misc:
-    master: Misc | None
-    tk: _tkinter.TkappType
-    children: dict[str, Widget]
+class Misc(Protocol): # Lies to the Type Checker, so Misc can be used as if it's a valid Protocol
+    master: Misc | None = None # Part of the lie and doesn't matter for our real code
+    tk: _tkinter.TkappType = _tkinter.TkappType() # Part of the lie and doesn't matter for our real code
+    children: dict[str, Widget] = dict() # Part of the lie and doesn't matter for our real code
     def destroy(self) -> None: ...
     def deletecommand(self, name: str) -> None: ...
     def tk_strictMotif(self, boolean: Incomplete | None = None): ...
